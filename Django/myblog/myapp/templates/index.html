@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script>
+
+        function prev() {
+
+            var prevPage = parseInt("{{page_num}}") - 1;
+            window.location.href = "{% url 'blog:index' %}?page=" + prevPage;
+
+        }
+
+        function next() {
+            var nextPage = parseInt("{{page_num}}") + 1;
+            window.location.href = "{% url 'blog:index' %}?page=" + nextPage;
+        }
+
+
+    </script>
+
+</head>
+<body>
+<div style="width: 800px; margin:0 auto;">
+    <h1>
+        <a href="{% url 'blog:edit_page' 0 %}">新文章</a>
+        (共{{count}}条,共{{count2}}页)
+    </h1>
+</div>
+<div style="width: 800px; margin:0 auto;">
+    <table border="5" style="width:100%">
+        <th>主题</th>
+        <th>作者</th>
+        <th>创建时间</th>
+        <th>修改时间</th>
+        {% for article in articles%}
+        <tr>
+            <td><a href="{% url 'blog:article_page' article.id %}">{{article.title}}</a></td>
+            <td>于红伟</td>
+            <td>{{article.add_temptime|date:"Y-m-d H:i:s"}}</td>
+            <td>{{article.mod_temptime|date:"Y-m-d H:i:s"}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div>
+        {% if page_num != 1 %}
+        <a href="javascript:void(0);" onclick="prev();">上一页</a>
+        {% endif %}
+        {% for x in pr %}
+        <a href="{% url 'blog:index' %}?page={{x}}">{{x}}</a>
+        {% endfor %}
+        {% if page_num !=  count2%}
+        <a href="javascript:void(0);" onclick="next();">下一页</a>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>
