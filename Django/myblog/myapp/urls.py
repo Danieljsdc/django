@@ -8,4 +8,3 @@ urlpatterns = [
     url(r'^edit/action$', views.edit_action, name='edit_action'),
     url(r'^delete/action$', views.delete_action, name='delete_action'),
 ]
-

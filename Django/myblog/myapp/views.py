@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.urls import reverse
 from . import models
 import math
 
@@ -36,14 +37,13 @@ def edit_action(request):
 
     if article_id == '0':
         models.Article.objects.create(title=title, content=content)
-        articles = models.Article.objects.all()
-        return render(request, 'index.html', {'articles': articles})
+        return redirect(reverse('blog:index'))
 
     article = models.Article.objects.get(pk=article_id)
     article.title = title
     article.content = content
     article.save()
-    return redirect('/index/article/' + article_id)
+    return redirect(reverse('blog:article_page', kwargs={'article_id': article_id}))
 
 def delete_action(request):
     article_id = request.POST.get('article_id', '0')

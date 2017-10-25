@@ -5,20 +5,14 @@
     <title>Title</title>
 
     <script>
-
         function prev() {
-
             var prevPage = parseInt("{{page_num}}") - 1;
             window.location.href = "{% url 'blog:index' %}?page=" + prevPage;
-
         }
-
         function next() {
             var nextPage = parseInt("{{page_num}}") + 1;
             window.location.href = "{% url 'blog:index' %}?page=" + nextPage;
         }
-
-
     </script>
 
 </head>
